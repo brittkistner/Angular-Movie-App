@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Angular App 4 - Rotten Tomatoes</title>
+    <link rel="stylesheet" type="text/css" href="darkly_bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
       <script src="app.js"></script>
       <script src="myController.js"></script>
@@ -10,7 +11,7 @@
   <body>
     <div ng-app="movieApp">
       <div ng-controller="myCtrl">
-        <div ng-hide='movieSelection'>
+        <!-- <div ng-hide='movieSelection'>
           <span>Which movie do you want to look up?</span>
           <input type='text' ng-model='movieTitle'>
           <button ng-click="lookup();">Lookup</button>
@@ -19,7 +20,7 @@
         <input type='text' ng-model='query'>
         <div ng-hide='movieList'>
           <ul>
-            <!-- <li ng-repeat="movie in movies | orderBy: 'movie.title' track by $index"> -->
+            <li ng-repeat="movie in movies | orderBy: 'movie.title' track by $index">
             <li ng-repeat="movie in movies | filter: query track by $index">
               {{ movie.title }}
               <button ng-click="moreInfo();">More Info</button>
@@ -30,6 +31,71 @@
               </div>
             </li>
 
+          </ul>
+        </div> -->
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="#" ng-click="commingSoon();">Coming Soon</a></li>
+                <li><a href="#" ng-click="theatersNow();">In Theaters Now</a></li>
+              </ul>
+              <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Filter Movies" ng-model="query">
+                </div>
+                <button type="submit" class="btn btn-default">Filter</button>
+              </form>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
+        <!-- <button ng-click="commingSoon();">Coming Soon</button> -->
+        <div ng-hide="commingSoon">
+          <ul>
+            <li ng-repeat="movie in comingSoon | filter: query track by $index">
+              {{ movie.title }}
+              <button ng-click="moreInfo();">More Info</button>
+              <button id="{{ movie }}" ng-click="addMovie();">Add</button>
+              <div ng-show="description">
+                <img src="{{ movie.poster }}">
+                <ul>
+                  <li>Rating: {{ movie.rating }}</li>
+                  <li>Runtime: {{ movie.runtime }} mins</li>
+                  <li>Release Year: {{ movie.release_year }}</li>
+<!-- iterate through cast array here -->
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <button  ng-click="theatersNow();">In Theaters Now</button> -->
+        <div ng-hide="theatersNow">
+          <ul>
+            <li ng-repeat="movie in inTheaters | filter: query track by $index">
+              {{ movie.title }}
+              <button ng-click="moreInfo();">More Info</button>
+              <div ng-show="description">
+                <p>{{ movie.rating }}</p>
+                <p>{{ movie.runtime }} mins</p>
+                <img src="{{ movie.poster }}">
+              </div>
+            </li>
           </ul>
         </div>
       </div>
