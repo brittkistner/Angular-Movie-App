@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Angular App 4 - Rotten Tomatoes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+      <script src="app.js"></script>
+      <script src="myController.js"></script>
+  </head>
+  <body>
+    <div ng-app="movieApp">
+      <div ng-controller="myCtrl">
+        <div ng-hide='movieSelection'>
+          <span>Which movie do you want to look up?</span>
+          <input type='text' ng-model='movieTitle'>
+          <button ng-click="lookup();">Lookup</button>
+        </div>
+        <span>Filter movie search</span>
+        <input type='text' ng-model='query'>
+        <div ng-hide='movieList'>
+          <ul>
+            <!-- <li ng-repeat="movie in movies | orderBy: 'movie.title' track by $index"> -->
+            <li ng-repeat="movie in movies | filter: query track by $index">
+              {{ movie.title }}
+              <button ng-click="moreInfo();">More Info</button>
+              <div ng-show="description">
+                <p>{{ movie.rating }}</p>
+                <p>{{ movie.runtime }} mins</p>
+                <img src="{{ movie.poster }}">
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
